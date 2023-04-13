@@ -6,6 +6,7 @@
 int LCS(char* X, char* Y, int i, int j);
 int FindMax(int a, int b);
 
+
 int main(){
     char X[1000];
     char Y[1000];
