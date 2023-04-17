@@ -2,24 +2,53 @@
 
 #include <stdio.h>
 
-
 int main(){
 
-    int N; // (1 ≤ N ≤ 100)
-    int K; // (1 ≤ K ≤ 100,000)
-    scanf("%d %d" , &N , &K);
+    int i, j, n, k;
+	int *warr, *varr, *arr;
 
-    int W[N]; // (1 ≤ W ≤ 100,000)
-    int V[N]; // (0 ≤ V ≤ 1,000)
+	scanf("%d %d", &n, &k); // 아이템 갯 수, 배낭 용량
 
-    for(int i=0 ; i<N ; i++){
-        scanf("%d %d" , &W[i] , &V[i]);
+
+	warr = (int *)malloc(sizeof(int) * n);
+	varr = (int *)malloc(sizeof(int) * n);
+	arr = (int *)malloc(sizeof(int) * (k+1));
+
+	for (i = 0; i < n; i++)
+	{
+		scanf("%d %d", &warr[i], &varr[i]);
+		if (varr[i] == 0)
+			warr[i] = 0;
+	}
+
+	for (i = 0; i < k; i++)
+    {
+		arr[i] = 0;
     }
 
+	for (i = 0; i < n; i++) // 갯 수 별로
+	{
+		for (j = k; j > 0; j--) // 용량 최대치까지
+		{
+			if (warr[i] <= j)
+			{
+				if (arr[j] < arr[j - warr[i]] + varr[i])
+                {
+					arr[j] = arr[j - warr[i]] + varr[i];
+                }
+			}
+		}
+	}
 
+	printf("%d", arr[k]);
 
+	free(warr);
+	free(varr);
+	free(arr);
 
 
 
     return 0;
 }
+
+
