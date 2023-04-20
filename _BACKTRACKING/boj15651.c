@@ -31,6 +31,7 @@ void nm(int* arr, int level){
         printf("\n");
         return;
     }
+    
     else{
         for(int i=1 ; i<=N ; i++){
             

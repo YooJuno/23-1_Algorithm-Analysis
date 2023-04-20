@@ -15,6 +15,7 @@ int main(){
 
     int arr[M];
     
+    
     nm(arr, 0, 1);
     
 

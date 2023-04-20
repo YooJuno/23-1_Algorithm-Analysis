@@ -48,6 +48,7 @@ void nm(int* arr, int level, int init){
             arr[level] = i; 
             nm(arr, level+1, i);
             
+            
         }
     }
 }
