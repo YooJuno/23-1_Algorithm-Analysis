@@ -16,7 +16,6 @@ int main(){
     int arr[M];
     
     nm(arr, 0);
-    
 
     return 0;
 }
