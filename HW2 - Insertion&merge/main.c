@@ -96,7 +96,7 @@ void InsertionSort(int *A, int n) {
   return;
 }
 
-void MergeSort(int *A, int left, int right) {
+void MergeSort(int *A, int left, int right) { // A , 0 , n-1
   if (left < right) {
     int mid = floor((left + right) / 2);
     // your code here
@@ -107,12 +107,12 @@ void MergeSort(int *A, int left, int right) {
   }
 }
 
-void Merge(int *A, int left, int mid, int right) {
+void Merge(int *A, int left, int mid, int right) { // A , 0 , (n-1)/2 , n-1
   int size = right - left + 1;
   int *M = (int *)malloc(sizeof(int) * (size));
 
   int i = left;
-  int j = mid + 1;
+  int j = mid + 1; // right
 
   int m = 0;
   while ((i <= mid) && (j <= right)) {
