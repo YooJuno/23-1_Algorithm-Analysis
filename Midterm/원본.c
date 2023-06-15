@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdio.h>
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -74,11 +75,11 @@ int main(void) {
   PrintHuffmanCode(codeTree);
 
   // print the total number of bits required
-  //int sum = 0;
-  //for (int i = 0; i < num_chars; i++) {
+  // int sum = 0;
+  // for (int i = 0; i < num_chars; i++) {
   //  sum += charFreq[i] * strlen(code[i]);
   //}
-  //printf("Total number of bits required for the given text: %d\n", sum);
+  // printf("Total number of bits required for the given text: %d\n", sum);
 
   return 0;
 }
@@ -185,39 +186,6 @@ struct zNode *ExtractMin(struct Queue *Q) {
 
   return NULL;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 int CheckQueueLen(struct Queue *Q) {
   int i = 0;

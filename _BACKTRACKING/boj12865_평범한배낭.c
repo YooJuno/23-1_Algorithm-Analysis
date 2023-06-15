@@ -1,6 +1,7 @@
 // https://www.acmicpc.net/problem/12865
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(){
 
