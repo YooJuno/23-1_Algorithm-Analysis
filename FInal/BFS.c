@@ -154,7 +154,7 @@ void printQueue(struct queue* q) {
 }
 
 int main() {
-  struct Graph* graph = createGraph(6);
+  struct Graph* graph = createGraph(7);
   addEdge(graph, 0, 1);
   addEdge(graph, 0, 2);
   addEdge(graph, 1, 2);

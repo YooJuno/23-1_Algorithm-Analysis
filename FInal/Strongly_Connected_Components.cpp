@@ -1,160 +1,118 @@
-// C++ Implementation of Kosaraju's algorithm to print all SCCs
+// Kosaraju's algorithm to find strongly connected components in C++
+
 #include <iostream>
 #include <list>
 #include <stack>
+
 using namespace std;
 
-class Graph
-{
-	int V; // No. of vertices
-	list<int> *adj; // An array of adjacency lists
+class Graph {
+  int V;
+  list<int> *adj;
+  void fillOrder(int s, bool visitedV[], stack<int> &Stack);
+  void DFS(int s, bool visitedV[]);
 
-	// Fills Stack with vertices (in increasing order of finishing
-	// times). The top element of stack has the maximum finishing
-	// time
-	void fillOrder(int v, bool visited[], stack<int> &Stack);
-
-	// A recursive function to print DFS starting from v
-	void DFSUtil(int v, bool visited[]);
-public:
-	Graph(int V);
-	void addEdge(int v, int w);
-
-	// The main function that finds and prints strongly connected
-	// components
-	void printSCCs();
-
-	// Function that returns reverse (or transpose) of this graph
-	Graph getTranspose();
+   public:
+  Graph(int V);
+  void addEdge(int s, int d);
+  void printSCC();
+  Graph transpose();
 };
 
-Graph::Graph(int V)
-{
-	this->V = V;
-	adj = new list<int>[V];
+Graph::Graph(int V) {
+  this->V = V;
+  adj = new list<int>[V];
 }
 
-// A recursive function to print DFS starting from v
-void Graph::DFSUtil(int v, bool visited[])
-{
-	// Mark the current node as visited and print it
-	visited[v] = true;
-	cout << v << " ";
+// DFS
+void Graph::DFS(int s, bool visitedV[]) {
+  visitedV[s] = true;
+  cout << s << " ";
 
-	// Recur for all the vertices adjacent to this vertex
-	list<int>::iterator i;
-	for (i = adj[v].begin(); i != adj[v].end(); ++i)
-		if (!visited[*i])
-			DFSUtil(*i, visited);
+  list<int>::iterator i;
+  for (i = adj[s].begin(); i != adj[s].end(); ++i)
+    if (!visitedV[*i])
+      DFS(*i, visitedV);
 }
 
-Graph Graph::getTranspose()
-{
-	Graph g(V);
-	for (int v = 0; v < V; v++)
-	{
-		// Recur for all the vertices adjacent to this vertex
-		list<int>::iterator i;
-		for(i = adj[v].begin(); i != adj[v].end(); ++i)
-		{
-			g.adj[*i].push_back(v);
-		}
-	}
-	return g;
+// Transpose
+Graph Graph::transpose() {
+  Graph g(V);
+  for (int s = 0; s < V; s++) {
+    list<int>::iterator i;
+    for (i = adj[s].begin(); i != adj[s].end(); ++i) {
+      g.adj[*i].push_back(s);
+    }
+  }
+  return g;
 }
 
-void Graph::addEdge(int v, int w)
-{
-	adj[v].push_back(w); // Add w to v’s list.
+// Add edge into the graph
+void Graph::addEdge(int s, int d) {
+  adj[s].push_back(d);
 }
 
-void Graph::fillOrder(int v, bool visited[], stack<int> &Stack)
-{
-	// Mark the current node as visited and print it
-	visited[v] = true;
+void Graph::fillOrder(int s, bool visitedV[], stack<int> &Stack) {
+  visitedV[s] = true;
 
-	// Recur for all the vertices adjacent to this vertex
-	list<int>::iterator i;
-	for(i = adj[v].begin(); i != adj[v].end(); ++i)
-		if(!visited[*i])
-			fillOrder(*i, visited, Stack);
+  list<int>::iterator i;
+  for (i = adj[s].begin(); i != adj[s].end(); ++i)
+    if (!visitedV[*i])
+      fillOrder(*i, visitedV, Stack);
 
-	// All vertices reachable from v are processed by now, push v
-	Stack.push(v);
+  Stack.push(s);
 }
 
-// The main function that finds and prints all strongly connected
-// components
-void Graph::printSCCs()
-{
-	stack<int> Stack;
+// Print strongly connected component
+void Graph::printSCC() {
+  stack<int> Stack;
 
-	// Mark all the vertices as not visited (For first DFS)
-	bool *visited = new bool[V];
-	for(int i = 0; i < V; i++)
-		visited[i] = false;
+  bool *visitedV = new bool[V];
+  for (int i = 0; i < V; i++)
+    visitedV[i] = false;
 
-	// Fill vertices in stack according to their finishing times
-	for(int i = 0; i < V; i++)
-		if(visited[i] == false)
-			fillOrder(i, visited, Stack);
+  for (int i = 0; i < V; i++)
+    if (visitedV[i] == false)
+      fillOrder(i, visitedV, Stack);
 
-	// Create a reversed graph
-	Graph gr = getTranspose();
+  Graph gr = transpose();
 
-	// Mark all the vertices as not visited (For second DFS)
-	for(int i = 0; i < V; i++)
-		visited[i] = false;
+  for (int i = 0; i < V; i++)
+    visitedV[i] = false;
 
-	// Now process all vertices in order defined by Stack
-	while (Stack.empty() == false)
-	{
-		// Pop a vertex from stack
-		int v = Stack.top();
-		Stack.pop();
+  while (Stack.empty() == false) {
+    int s = Stack.top();
+    Stack.pop();
 
-		// Print Strongly connected component of the popped vertex
-		if (visited[v] == false)
-		{
-			gr.DFSUtil(v, visited);
-			cout << endl;
-		}
-	}
+    if (visitedV[s] == false) {
+      gr.DFS(s, visitedV);
+      cout << endl;
+    }
+  }
 }
 
-// Driver program to test above functions
-int main()
-{
-	// Create a graph given in the above diagram
-	Graph g(9); // 0부터 시작하는 인덱스임
+int main() {
+  // Create a graph given in the above diagram
+	Graph g(7); // 0부터 시작하는 인덱스임
 	
-    // g.addEdge(0, 0); // 그래서 0을 넣어줬음
+    g.addEdge(0, 1); // 그래서 0을 넣어줬음
+    // 제발 결과로 나오는 0 무시해 준호야
 
-    g.addEdge(1, 5);
+    g.addEdge(1, 2);
+	g.addEdge(1, 3);
 
-	g.addEdge(2, 1);
+    g.addEdge(2, 0);
+    g.addEdge(2, 5);
 
+	g.addEdge(3, 1);
     g.addEdge(3, 2);
-    g.addEdge(3, 4);
 
-	g.addEdge(4, 3);
+	g.addEdge(5, 3);
+    g.addEdge(5, 4);
+    g.addEdge(5, 6);
 
-	g.addEdge(5, 2);
+    g.addEdge(6, 5);
 
-    g.addEdge(6, 2);
-	g.addEdge(6, 5);
-    g.addEdge(6, 7);
-
-    g.addEdge(7, 3);
-    g.addEdge(7, 6);
-
-    g.addEdge(8, 4);
-    g.addEdge(8, 7);
-    g.addEdge(8, 8);
-
-	cout << "Following are strongly connected components in "
-			"given graph \n";
-	g.printSCCs();
-
-	return 0;
+  cout << "Strongly Connected Components:\n";
+  g.printSCC();
 }

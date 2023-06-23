@@ -61,7 +61,7 @@
   
   // Driver code
   int main() {
-    int arr[] = {1, 12, 9, 5, 6, 10};
+    int arr[] = {8, 2, 6, 3, 27, 16,19,21,15,11};
     int n = sizeof(arr) / sizeof(arr[0]);
   
     heapSort(arr, n);

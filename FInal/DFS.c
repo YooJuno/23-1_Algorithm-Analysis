@@ -90,15 +90,25 @@ void printGraph(struct Graph* graph) {
 }
 
 int main() {
-  struct Graph* graph = createGraph(4);
-  addEdge(graph, 0, 1);
-  addEdge(graph, 0, 2);
+  struct Graph* graph = createGraph(9);
+  addEdge(graph, 0, 0);
   addEdge(graph, 1, 2);
-  addEdge(graph, 2, 3);
+  addEdge(graph, 1, 3);
+  addEdge(graph, 1, 4);
+
+  addEdge(graph, 2, 4);
+
+  addEdge(graph, 3, 4);
+  addEdge(graph, 3, 5);
+
+  addEdge(graph, 4, 5);
+  addEdge(graph, 4, 6);
+
+  addEdge(graph, 5, 6);
 
   printGraph(graph);
 
-  DFS(graph, 2);
+  DFS(graph, 7);
 
   return 0;
 }

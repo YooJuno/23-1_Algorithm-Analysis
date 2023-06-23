@@ -63,6 +63,13 @@ void countingSort(int array[], int size, int place) {
     array[i] = output[i];
 }
 
+// Print an array
+void printArray(int array[], int size) {
+  for (int i = 0; i < size; ++i) {
+    printf("%d  ", array[i]);
+  }
+  printf("\n");
+}
 // Main function to implement radix sort
 void radixsort(int array[], int size) {
   // Get maximum element
@@ -71,19 +78,13 @@ void radixsort(int array[], int size) {
   // Apply counting sort to sort elements based on place value.
   for (int place = 1; max / place > 0; place *= 10)
     countingSort(array, size, place);
+    printArray(array, size);
 }
 
-// Print an array
-void printArray(int array[], int size) {
-  for (int i = 0; i < size; ++i) {
-    printf("%d  ", array[i]);
-  }
-  printf("\n");
-}
 
 // Driver code
 int main() {
-  int array[] = {121, 432, 564, 23, 1, 45, 788};
+  int array[] = {2721, 9393, 1911, 4496, 8183};
   int n = sizeof(array) / sizeof(array[0]);
   radixsort(array, n);
   printArray(array, n);

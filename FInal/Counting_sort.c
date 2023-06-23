@@ -70,7 +70,7 @@ void printArray(int array[], int size) {
 
 // Driver code
 int main() {
-  int array[] = {4, 2, 2, 8, 3, 3, 1};
+  int array[] = {2721, 9393, 1911, 4496, 8183};
   int n = sizeof(array) / sizeof(array[0]);
   countingSort(array, n);
   printArray(array, n);
